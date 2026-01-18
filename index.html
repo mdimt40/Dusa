@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DUSA | ২৫ বছর পূর্তি পোস্টার</title>
+  <title>DUSA | ২৫ বছর পূর্তি</title>
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -45,7 +45,6 @@
 
     canvas {
       width: 100%;
-      max-width: 100%;
       border: 2px dashed #d62828;
       border-radius: 12px;
       margin: 20px 0;
@@ -54,7 +53,7 @@
 
     .btn, .upload-label {
       background: linear-gradient(135deg, #d62828, #b22222);
-      color: #fff;
+      color: white;
       padding: 12px 26px;
       border-radius: 8px;
       cursor: pointer;
@@ -72,28 +71,44 @@
       display: none;
     }
 
-    /* Crop Modal */
+    /* ---------- Crop Modal ---------- */
     #cropModal {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.7);
       z-index: 1000;
+      padding: 10px;
       justify-content: center;
       align-items: center;
     }
 
-    #cropBox {
+    .crop-box {
       background: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      max-width: 90vw;
+      width: 100%;
+      max-width: 420px;
       max-height: 90vh;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .crop-image-wrapper {
+      flex: 1;
+      overflow: auto;
+      padding: 10px;
     }
 
     #cropImage {
       max-width: 100%;
-      max-height: 70vh;
+      max-height: 60vh;
+      display: block;
+      margin: auto;
+    }
+
+    #cropBtn {
+      border-radius: 0 0 12px 12px;
     }
   </style>
 </head>
@@ -116,9 +131,10 @@
 
 <!-- Crop Modal -->
 <div id="cropModal">
-  <div id="cropBox">
-    <img id="cropImage">
-    <br><br>
+  <div class="crop-box">
+    <div class="crop-image-wrapper">
+      <img id="cropImage">
+    </div>
     <button class="btn" id="cropBtn">Crop & Apply</button>
   </div>
 </div>
@@ -136,10 +152,9 @@
   let cropper;
   let userImage = new Image();
 
-  // Load DUSA Anniversary Frame
+  // Load frame
   const frame = new Image();
-  frame.src = 'phonto.png'; // <-- YOUR FRAME IMAGE
-
+  frame.src = 'phonto.png'; // ✅ TEMPLATE NAME FIXED
   frame.onload = drawPoster;
 
   imageUpload.addEventListener('change', e => {
@@ -155,7 +170,9 @@
         if (cropper) cropper.destroy();
         cropper = new Cropper(cropImage, {
           aspectRatio: 1,
-          viewMode: 1
+          viewMode: 1,
+          autoCropArea: 1,
+          responsive: true
         });
       };
     };
@@ -163,27 +180,32 @@
   });
 
   cropBtn.addEventListener('click', () => {
-    const croppedCanvas = cropper.getCroppedCanvas({
+    const cropped = cropper.getCroppedCanvas({
       width: 1000,
       height: 1000
     });
 
-    userImage.src = croppedCanvas.toDataURL('image/png');
+    userImage.src = cropped.toDataURL('image/png');
     userImage.onload = drawPoster;
 
     cropModal.style.display = 'none';
     cropper.destroy();
   });
 
+  cropModal.addEventListener('click', e => {
+    if (e.target === cropModal) {
+      cropModal.style.display = 'none';
+      if (cropper) cropper.destroy();
+    }
+  });
+
   function drawPoster() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw user photo first
     if (userImage.src) {
       ctx.drawImage(userImage, 0, 0, 1000, 1000);
     }
 
-    // Draw frame on top
     ctx.drawImage(frame, 0, 0, 1000, 1000);
   }
 
