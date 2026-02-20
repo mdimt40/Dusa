@@ -237,4 +237,3 @@ function showDetails(name, position, university){
     "University: " + university
   );
 }
-
