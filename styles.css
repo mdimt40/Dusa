@@ -327,16 +327,55 @@ footer h5 { color: #fff; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5
   footer { padding: 70px 0 30px; }
   .social-icon { width: 42px; height: 42px; font-size: 1.1rem; }
 
+  /* Blood donor section mobile centering - only for donor.html registration section */
+  .text-center p.text-muted { text-align: center; }
+  .text-center .btn { display: inline-block; }
+
   .search-box { margin-top: -40px; padding: 1.25rem; }
   .form-select { padding: 0.8rem; font-size: 1rem; }
   .donor-name { font-size: 1.1rem; }
+
+  /* Footer responsive layout */
+  .footer-top-section {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-col {
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-middle-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem 0;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Desktop - Footer top section side by side */
+@media (min-width: 768px) {
+  .footer-top-section {
+    display: flex !important;
+    flex-direction: row !important;
+    text-align: left !important;
+  }
+  
+  .footer-col-left {
+    flex: 1;
+    padding-right: 2rem;
+  }
+  
+  .footer-col-right {
+    flex: 1;
+    text-align: right !important;
+  }
 }
 
 @media (max-width: 400px) {
   .hero h1 { font-size: 1.9rem; }
   .btn-dusa, .btn-outline-primary, .btn-outline-light { padding: 0.75rem 1.5rem; font-size: 0.95rem; }
 }
-.mb-4 {
-    margin: 1.5rem !important;
-}
-
