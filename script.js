@@ -39,17 +39,17 @@ const scriptURL = 'https://proxy.mdimt40.workers.dev/';
 
 async function loadEvents() {
   const container = document.getElementById('events-container');
-  
+ 
   try {
     const response = await fetch(scriptURL);
-    
+   
     // If the proxy is working, this will return the clean JSON
     const events = await response.json();
-    
-    container.innerHTML = ''; 
-    
+   
+    container.innerHTML = '';
+   
     events.forEach(event => {
-      if(!event.title) return; 
+      if(!event.title) return;
 
       // Fix for missing https:// in the link
       let rawLink = event.link || '#';
@@ -57,23 +57,35 @@ async function loadEvents() {
         rawLink = 'https://' + rawLink;
       }
 
+      // 1. Handle the Image URL
+      // Use the image from your API (e.g., event.image or event.imageUrl)
+      // If none exists, use a placeholder image.
+      const imageUrl = event.image || 'https://via.placeholder.com/800x400?text=Event+Image';
+
+      // 2. Updated Card HTML to include the image
       const cardHTML = `
         <div class="col-lg-8 mb-4" data-aos="flip-up">
-          <div class="card event-card rounded-4">
-            <h4>${event.title}</h4>
-            <hr class="my-4 opacity-10">
-            <div class="row mb-4">
-              <div class="col-sm-6 mb-2">
-                <p class="mb-0 text-dark"><i class="fas fa-calendar-alt me-2" style="color: var(--brand-orange)"></i><strong>Date:</strong> ${event.date || 'TBA'}</p>
-              </div>
-              <div class="col-sm-6 mb-2">
-                <p class="mb-0 text-dark"><i class="fas fa-clock me-2" style="color: var(--brand-orange)"></i><strong>Time:</strong> ${event.time || 'TBA'}</p>
-              </div>
-              <div class="col-12 mt-2">
-                <p class="mb-0 text-dark"><i class="fas fa-map-marker-alt me-2" style="color: var(--brand-orange)"></i><strong>Location:</strong> ${event.location || 'TBA'}</p>
-              </div>
+          <div class="card event-card rounded-4 overflow-hidden"> 
+            
+            <img src="${imageUrl}" class="card-img-top" alt="${event.title}" style="height: 250px; object-fit: cover;">
+            
+            <div class="card-body p-4"> <h4 class="card-title">${event.title}</h4>
+                <hr class="my-3 opacity-10">
+                
+                <div class="row mb-4">
+                  <div class="col-sm-6 mb-2">
+                    <p class="mb-0 text-dark"><i class="fas fa-calendar-alt me-2" style="color: var(--brand-orange)"></i><strong>Date:</strong> ${event.date || 'TBA'}</p>
+                  </div>
+                  <div class="col-sm-6 mb-2">
+                    <p class="mb-0 text-dark"><i class="fas fa-clock me-2" style="color: var(--brand-orange)"></i><strong>Time:</strong> ${event.time || 'TBA'}</p>
+                  </div>
+                  <div class="col-12 mt-2">
+                    <p class="mb-0 text-dark"><i class="fas fa-map-marker-alt me-2" style="color: var(--brand-orange)"></i><strong>Location:</strong> ${event.location || 'TBA'}</p>
+                  </div>
+                </div>
+                
+                <a href="${rawLink}" target="_blank" class="btn btn-dusa w-100 py-3 fs-5">Read More & Register</a>
             </div>
-            <a href="${rawLink}" target="_blank" class="btn btn-dusa w-100 py-3 fs-5">Read More & Register</a>
           </div>
         </div>
       `;
@@ -225,3 +237,4 @@ function showDetails(name, position, university){
     "University: " + university
   );
 }
+
