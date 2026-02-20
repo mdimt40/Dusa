@@ -7,8 +7,9 @@ AOS.init({
 });
 
 // Dynamic Navbar Background
-const navbar = document.getElementById('mainNav');
 window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('mainNav');
+  if (!navbar) return;
   if (window.scrollY > 50) {
     navbar.classList.add('scrolled');
   } else {
