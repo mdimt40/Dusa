@@ -289,3 +289,50 @@ footer h5 { color: #fff; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5
 {
     margin: 1rem !important;
 }
+
+/* --- MOBILE RESPONSIVE TWEAKS --- */
+@media (max-width: 576px) {
+  body { font-size: 0.95rem; }
+
+  .navbar { padding: 0.75rem 0; }
+  .navbar-brand { font-size: 1.4rem; }
+  .navbar-brand img { height: 32px; }
+  .nav-link { margin-left: 0; padding: 0.5rem 0; }
+
+  .hero { padding-top: 120px; min-height: 100svh; }
+  .hero h1 { font-size: clamp(2rem, 9vw, 3rem); margin-bottom: 1rem; }
+  .hero .lead { font-size: 1rem; margin-bottom: 1rem; }
+  .hero .fs-4 { font-size: 1rem; }
+
+  .section { padding: 70px 0; }
+  .section-title h2 { font-size: 2rem; }
+  .section-title { margin-bottom: 2rem; }
+
+  .card { border-radius: 18px; }
+  .profile-card { min-width: 260px; padding: 1.25rem; }
+  .profile-img-wrap { width: 120px; height: 120px; }
+
+  .activity-card { padding: 2rem 1.25rem; }
+  .activity-icon { width: 72px; height: 72px; font-size: 2rem; }
+
+  .event-card { padding: 2rem; }
+  .event-card h4 { font-size: 1.4rem; }
+
+  .photo-grid { grid-template-columns: 1fr; }
+  .photo-grid img { height: 200px; }
+
+  .leader-img { height: 260px; }
+  .leader-info h4 { font-size: 1.4rem; }
+
+  footer { padding: 70px 0 30px; }
+  .social-icon { width: 42px; height: 42px; font-size: 1.1rem; }
+
+  .search-box { margin-top: -40px; padding: 1.25rem; }
+  .form-select { padding: 0.8rem; font-size: 1rem; }
+  .donor-name { font-size: 1.1rem; }
+}
+
+@media (max-width: 400px) {
+  .hero h1 { font-size: 1.9rem; }
+  .btn-dusa, .btn-outline-primary, .btn-outline-light { padding: 0.75rem 1.5rem; font-size: 0.95rem; }
+}
